@@ -1,0 +1,60 @@
+import java.util.Scanner;
+
+public class IndianQuizGame {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] questions = {
+            "What is the capital of India?",
+            "Who is known as the Father of the Nation in India?",
+            "What is the national animal of India?",
+            "What is the currency of India?",
+            "Which Indian city is also known as the Silicon Valley of India?"
+        };
+
+        String[][] options = {
+            {"1. Mumbai", "2. Delhi", "3. Kolkata", "4. Chennai"},
+            {"1. Jawaharlal Nehru", "2. Subhas Chandra Bose", "3. Mahatma Gandhi", "4. B. R. Ambedkar"},
+            {"1. Tiger", "2. Elephant", "3. Peacock", "4. Lion"},
+            {"1. Rupee", "2. Dollar", "3. Pound", "4. Euro"},
+            {"1. Mumbai", "2. Pune", "3. Bengaluru", "4. Hyderabad"}
+        };
+
+        int[] answers = {2, 3, 1, 1, 3};
+        int score = 0;
+
+        System.out.println("Welcome to the India Quiz!");
+        System.out.println("You have 10 seconds to answer each question.\n");
+
+        for (int i = 0; i < questions.length; i++) {
+            System.out.println("Question " + (i + 1) + ": " + questions[i]);
+            for (String option : options[i]) {
+                System.out.println(option);
+            }
+
+            long startTime = System.currentTimeMillis();
+            int userAnswer = 0;
+
+            while (System.currentTimeMillis() - startTime < 10000) {
+                if (scanner.hasNextInt()) {
+                    userAnswer = scanner.nextInt();
+                    break;
+                }
+            }
+
+            if (System.currentTimeMillis() - startTime >= 10000) {
+                System.out.println("Time's up! Moving to the next question.");
+            } else if (userAnswer == answers[i]) {
+                System.out.println("Correct!\n");
+                score++;
+            } else {
+                System.out.println("Wrong! The correct answer was " + answers[i] + ".\n");
+            }
+        }
+
+        System.out.println("Quiz Over!");
+        System.out.println("Your score: " + score + "/" + questions.length);
+
+        scanner.close();
+    }
+}
